@@ -1,9 +1,14 @@
 from PIL import Image
+import sys
 
-def convert_img():
-    img = Image.open("image.jpg")
-    img = img.resize((150, 150)).convert('L').rotate(0)
-    img.show()
+def convert_img(image):
+    
+    try:
+        img = Image.open(image)
+    except:
+        print("Cannot find " + "'" + image + "'")
+        sys.exit()
+    img = img.resize((200, 200)).convert('L').rotate(90)
     size = w, h = img.size
     pixels = img.load()
     colors = []
@@ -13,11 +18,11 @@ def convert_img():
         for y in range(h):
             color = pixels[x, y]
             if(color > 0 and color < 52):
-                string+="."
+                string+=" "
             elif(color > 51 and color < 128):
-                string+=":"
+                string+="*"
             elif(color > 127 and color < 193):
-                string += "*"
+                string += "x"
             else:
                 string += "#"
             count+=1 
@@ -29,4 +34,6 @@ def convert_img():
 
 
 
-convert_img()
+if __name__ == "__main__":
+    img_arg = sys.argv[1]
+    convert_img(img_arg)
