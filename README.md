@@ -1,7 +1,7 @@
 ### Ascii Art Generator 9000
 Generate ascii art from the command line
 
-## Dependancies
+## Dependencies
 Pillow
 ## Want to use?
 ```
