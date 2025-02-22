@@ -1,12 +1,11 @@
 from PIL import Image, ExifTags
 import sys, traceback, argparse
 
-def convert_img(image, size):
+def convert_img(image, size, rotation):
     try:
         img = Image.open(image)
-        img = img.resize((size, size)).convert('L')
+        img = img.resize((size, size)).convert('L').rotate(rotation)
     except:
-        print(" Usage: python3 image.py -f imagefile -s 0-200")
         traceback.print_exc()
         sys.exit() 
     if not img.getexif(): # 
@@ -34,9 +33,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Image to ascii art")
     parser.add_argument("-file", "-f", required=True)
     parser.add_argument("-size", "-s", default=100)
+    parser.add_argument("-rotation", "-r", default=0)
     args = parser.parse_args()
     if(int(args.size) > 200): 
         args.size = 200
         print("(Max size is 200x200)")
-    convert_img(args.file, int(args.size))
+    convert_img(args.file, int(args.size), int(args.rotation))
     
