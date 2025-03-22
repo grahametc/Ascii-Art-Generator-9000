@@ -1,5 +1,5 @@
 from PIL import Image, ExifTags
-import sys, traceback, argparse
+import sys, traceback, argparse, random
 
 def convert_img(image, size, rotation):
     try:
@@ -13,6 +13,7 @@ def convert_img(image, size, rotation):
     size = w, h = img.size
     pixels = img.load()
     colors = []
+    white_chars=['#','%','@']
     string = ""
     count = 0
 
@@ -22,7 +23,7 @@ def convert_img(image, size, rotation):
             if(color >= 0 and color <= 51): string+=" "
             elif(color >= 52 and color <= 127): string+="*"
             elif(color >= 128 and color <= 192): string += "x"
-            else: string += "#"
+            else: string += white_chars[random.randint(0,2)]
             count+=1 
             if(count == img.size[0]):
                 string+="\n"
